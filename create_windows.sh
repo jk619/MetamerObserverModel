@@ -18,7 +18,9 @@ matlab -nodesktop -nodisplay -nosplash <<EOF
 clc
 clear
 
-mainPath    = '/scratch/jaw288/MetamerObserverModel/'
+[~,whoami] = system('whoami'); whoami = whoami(1:end-1)
+
+mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 windowPath  = fullfile(mainPath,'windows');
 codePath    = fullfile(mainPath,'functions');
 mkdir(windowPath)
