@@ -20,3 +20,6 @@ tar -xvf tiff_images.tar
 
 rm tiff_images.tar
 
+
+# create log directory under scratch
+mkdir /scratch/$(whoami)/logs
