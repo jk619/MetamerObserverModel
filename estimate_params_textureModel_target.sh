@@ -5,9 +5,9 @@
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs
 #SBATCH --mem=128gb # More memory you request the less priority you get
 #SBATCH --time=50:00:00 # Max request to be safe...
-#SBATCH --output=/scratch/jaw288/logs/param_tar_est_out_ses_%x-%a.txt # Define output log location
-#SBATCH --error=/scratch/jaw288/logs/param_tar_est_err_ses_%x-%a.txt # and the error logs for when it inevitably crashes
-#SBATCH --mail-user=jaw288@nyu.edu #email
+#SBATCH --output=/scratch/jk7127/logs/param_tar_est_out_ses_%x-%a.txt # Define output log location
+#SBATCH --error=/scratch/jk7127/logs/param_tar_est_err_ses_%x-%a.txt # and the error logs for when it inevitably crashes
+#SBATCH --mail-user=jk7127@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
 #all_subjects=(ALESPA ANDBAS ANDTOR ANTBRA ARIZER ASISOR CALCAR CAMCAP CHISOL CHITOR CLALAV CLANUT DANDAC ELECHE EMAMAM FABGUA GIOTRI IVAPI MIRACQ NOVNAR PAOCON PIEAMB SARCOP TOMBIA VERTUL)
@@ -38,16 +38,13 @@ myimage    = '$sub';
 
 addpath(genpath(mainPath));
 
-w.scalings   = [0.21 0.46 0.84];
+w.scaling   = str2num('$wscale');
 w.aspect    = 2;
 w.size      = 2048;
 
 %% load windows
-%%
 
-for s = 1 : length(w.scalings)
     
-    w.scaling = w.scalings(s)
     load(sprintf('%s/window_2048x2048_s=%.2f_a=%i.mat',windowPath,w.scaling,w.aspect))
 
     oim = double((imread([targetPath filesep myimage '.png'])));
@@ -62,20 +59,8 @@ for s = 1 : length(w.scalings)
             [mask, maskInds]    = collectParamMask(opts,params); % Get parameter mask
             [Out_masked]        = Out(mask,:); % Mask out duplicate parameters
     
-    
 	save(sprintf('%s/params_%s_s=%.2f_a=%i.mat',targetPath,myimage,w.scaling,w.aspect),'Out_masked');
 %     
-    
-end
-
-    
-    
-    
-    
-    
-
-
-
 EOF
 
 exit 0
