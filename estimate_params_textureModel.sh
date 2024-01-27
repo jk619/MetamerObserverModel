@@ -37,6 +37,7 @@ clear
 
 mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 windowPath  = fullfile(mainPath,'windows');
+metPath     = fullfile(mainPath,'metamers');
 codePath    = fullfile(mainPath,'functions');
 addpath(genpath(codePath));
 
