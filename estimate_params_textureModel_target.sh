@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=parameter_estimation_target
+#SBATCH --job-name=parameter_estimation_met
 #SBATCH -a 0-19  # run this script as 2 jobs with SLURM_ARRAY_TASK_ID = 0 and 1. Add more numbers for more jobs!
 #SBATCH --nodes=1 # nodes per job
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs
@@ -29,14 +29,14 @@ echo $sub
 # startup matlab...
 matlab -nodesktop -nodisplay -nosplash <<EOF
 
-clc
-clear
-mainPath    = fullfile(fileparts(mfilename('fullpath')), '..');
-windowPath    = fullfile(mainPath,'windows');
-targetPath    = fullfile(mainPath,'target_images');
-myimage    = '$sub';
+[~,whoami] = system('whoami'); whoami = whoami(1:end-1)
 
-addpath(genpath(mainPath));
+mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
+windowPath  = fullfile(mainPath,'windows');
+codePath    = fullfile(mainPath,'functions');
+addpath(genpath(codePath));
+
+myimage    = '$sub';
 
 w.scaling   = str2num('$wscale');
 w.aspect    = 2;
@@ -54,12 +54,11 @@ w.size      = 2048;
     cropy = (sz(2)-2^mysize_pow_two) / 2;
     oim = oim(cropx+1:sz(1)-cropx,cropy+1:sz(2)-cropy,:);
 
-            params 		= metamerAnalysis(oim,m,opts);
-            [Out, ~]            = collectParams(params,opts);
-            [mask, maskInds]    = collectParamMask(opts,params); % Get parameter mask
-            [Out_masked]        = Out(mask,:); % Mask out duplicate parameters
-    
-	save(sprintf('%s/params_%s_s=%.2f_a=%i.mat',targetPath,myimage,w.scaling,w.aspect),'Out_masked');
+    params 		= metamerAnalysis(oim,m,opts);
+    [Out, ~]            = collectParams(params,opts);
+    [mask, maskInds]    = collectParamMask(opts,params); % Get parameter mask
+    [Out_masked]        = Out(mask,:); % Mask out duplicate parameters
+    save(sprintf('%s/params_%s_s=%.2f_a=%i.mat',targetPath,myimage,w.scaling,w.aspect),'Out_masked');
 %     
 EOF
 

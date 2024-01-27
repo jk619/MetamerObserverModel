@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=parameter_estimation_nat
+#SBATCH --job-name=parameter_estimation_met
 #SBATCH -a 0-19  # run this script as 2 jobs with SLURM_ARRAY_TASK_ID = 0 and 1. Add more numbers for more jobs!
 #SBATCH --nodes=1 # nodes per job
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs
@@ -10,10 +10,7 @@
 #SBATCH --mail-user=jk7127@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
-#all_subjects=(ALESPA ANDBAS ANDTOR ANTBRA ARIZER ASISOR CALCAR CAMCAP CHISOL CHITOR CLALAV CLANUT DANDAC ELECHE EMAMAM FABGUA GIOTRI IVAPI MIRACQ NOVNAR PAOCON PIEAMB SARCOP TOMBIA VERTUL)
 all_subjects=(azulejos bike boats gnarled graffiti grooming highway ivy leaves lettuce llama nyc palm portrait quad rocks terraces tiles treetop troop)
-#all_subjects=(highway)
-#all_subjects=(boats gnarled highway llama rocks)
 
 module load matlab/2020b
 
@@ -32,9 +29,14 @@ matlab -nodesktop -nodisplay -nosplash <<EOF
 clc
 clear
 
-mainPath    = '/scratch/jk7127/opposingEffects/'
+[~,whoami] = system('whoami'); whoami = whoami(1:end-1)
+
+mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 windowPath  = fullfile(mainPath,'windows');
-metPath    = fullfile(mainPath,'metamers');
+codePath    = fullfile(mainPath,'functions');
+addpath(genpath(codePath));
+
+
 myimage    = '$sub';
 
 sprintf('%s',myimage')
@@ -44,7 +46,6 @@ met_types = {'metamers_energy_ref';'metamers_energy_met'};
 
 model     = 'energy';
 
-addpath(genpath(mainPath));
 
 w.scaling   = str2num('$wscale');
 w.aspect    = 2;

@@ -5,9 +5,9 @@
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs
 #SBATCH --mem=64gb # More memory you request the less priority you get
 #SBATCH --time=50:00:00 # Max request to be safe...
-#SBATCH --output=/scratch/jaw288/logs/create_windows_out_ses_%x-%a.txt # Define output log location
-#SBATCH --error=/scratch/jaw288/logs/create_windows_err_ses_%x-%a.txt # and the error logs for when it inevitably crashes
-#SBATCH --mail-user=jaw288@nyu.edu #email
+#SBATCH --output=/scratch/jk7127/logs/create_windows_out_ses_%x-%a.txt # Define output log location
+#SBATCH --error=/scratch/jk7127/logs/create_windows_err_ses_%x-%a.txt # and the error logs for when it inevitably crashes
+#SBATCH --mail-user=jk7127@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
 
@@ -25,14 +25,12 @@ clear
 mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 windowPath  = fullfile(mainPath,'windows');
 codePath    = fullfile(mainPath,'functions');
-mkdir(windowPath)
-
 addpath(genpath(codePath));
 
 w.scaling   = str2num('$wscale');
 imSizes       = 2048;
 aspect        = 2;
-
+mkdir(windowPath)
 opts = metamerOpts(rand(imSizes ,imSizes ),'windowType=radial',sprintf('scale=%.2f',w.scaling),sprintf('aspect=%i',aspect),'Nsc=4','Nor=4');
 m = mkImMasks(opts);
 filename = sprintf('window_%ix%i_s=%.2f_a=%i.mat',imSizes,imSizes,w.scaling,aspect);
