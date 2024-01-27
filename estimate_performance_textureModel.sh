@@ -10,12 +10,11 @@
 #SBATCH --mail-user=jk7127@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
-#all_subjects=(ALESPA ANDBAS ANDTOR ANTBRA ARIZER ASISOR CALCAR CAMCAP CHISOL CHITOR CLALAV CLANUT DANDAC ELECHE EMAMAM FABGUA GIOTRI IVAPI MIRACQ NOVNAR PAOCON PIEAMB SARCOP TOMBIA VERTUL)
 all_subjects=(azulejos bike boats gnarled graffiti grooming highway ivy leaves lettuce llama nyc palm portrait quad rocks terraces tiles treetop troop)
-#all_subjects=(bike)
 
 module load matlab/2020b
 
+# Example run: 
 # this variable tells us the job number:
 jobnum=$SLURM_ARRAY_TASK_ID
 if [ $jobnum -ge ${#all_subjects[@]} ]

@@ -10,8 +10,9 @@
 #SBATCH --mail-user=jk7127@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
+# example run sbatch create_window.sh 0.84, the only argument [0.84] is scalng of analysis window
 
-# To run this function write sbatch create_windows.sh 0.21 ; It only takes one argument which is the scaling of the window. So far we used [0.21 0.46 0.84]
+
 module load matlab/2020b
 wscale=$1;
 # startup matlab...

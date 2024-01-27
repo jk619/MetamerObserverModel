@@ -33,6 +33,8 @@ matlab -nodesktop -nodisplay -nosplash <<EOF
 mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 windowPath  = fullfile(mainPath,'windows');
 codePath    = fullfile(mainPath,'functions');
+targetPath    = fullfile(mainPath,'target_images');
+
 addpath(genpath(codePath));
 
 myimage    = '$sub';
