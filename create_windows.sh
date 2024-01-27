@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=job
+#SBATCH --job-name=create_window
 #SBATCH -a 0  # run this script as 2 jobs with SLURM_ARRAY_TASK_ID = 0 and 1. Add more numbers for more jobs!
 #SBATCH --nodes=1 # nodes per job
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs

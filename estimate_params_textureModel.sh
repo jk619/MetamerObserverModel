@@ -42,7 +42,6 @@ myimage    = '$sub';
 sprintf('%s',myimage')
 
 met_types = {'metamers_energy_ref';'metamers_energy_met'};
-%met_types = {'metamers_luminance_met';'metamers_luminance_ref'};
 
 model     = 'energy';
 
@@ -55,7 +54,6 @@ w.size      = 2048;
 
 %load(sprintf('%s/window_2048x2048_s=%.2f_a=%i.mat',windowPath,w.scaling,w.aspect))
 
-%%
 
 for mer = 1 : length(met_types)
 
