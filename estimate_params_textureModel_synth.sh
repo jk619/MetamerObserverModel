@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=parameter_estimation_met
+#SBATCH --job-name=parameter_estimation_synth
 #SBATCH -a 0-19  # run this script as 2 jobs with SLURM_ARRAY_TASK_ID = 0 and 1. Add more numbers for more jobs!
 #SBATCH --nodes=1 # nodes per job
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs
@@ -10,7 +10,7 @@
 #SBATCH --mail-user=jaw288@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
-# example run sbatch estimate_params_textureModel.sh 0.84, the only argument [0.84] is scalng of analysis window
+# example run sbatch estimate_params_textureModel_synth.sh 0.84, the only argument [0.84] is scalng of analysis window
 
 
 
