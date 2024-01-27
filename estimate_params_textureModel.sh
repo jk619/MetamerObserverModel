@@ -3,7 +3,7 @@
 #SBATCH -a 0-19  # run this script as 2 jobs with SLURM_ARRAY_TASK_ID = 0 and 1. Add more numbers for more jobs!
 #SBATCH --nodes=1 # nodes per job
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs
-#SBATCH --mem=32gb # More memory you request the less priority you get
+#SBATCH --mem=64gb # More memory you request the less priority you get
 #SBATCH --time=50:00:00 # Max request to be safe...
 #SBATCH --output=/scratch/jk7127/logs/param_est_out_ses-%a.txt # Define output log location
 #SBATCH --error=/scratch/jk7127/logs/param_est_err_ses-%a.txt # and the error logs for when it inevitably crashes
@@ -42,11 +42,8 @@ addpath(genpath(codePath));
 
 
 myimage    = '$sub';
-
 sprintf('%s',myimage')
-
 met_types = {'metamers_energy_ref';'metamers_energy_met'};
-
 model     = 'energy';
 
 
@@ -56,7 +53,6 @@ w.size      = 2048;
 
 %% load windows
 
-%load(sprintf('%s/window_2048x2048_s=%.2f_a=%i.mat',windowPath,w.scaling,w.aspect))
 
 
 for mer = 1 : length(met_types)
