@@ -1,12 +1,12 @@
 #!/bin/sh
-#SBATCH --job-name=parameter_estimation_met
+#SBATCH --job-name=parameter_estimation_tar
 #SBATCH -a 0-19  # run this script as 2 jobs with SLURM_ARRAY_TASK_ID = 0 and 1. Add more numbers for more jobs!
 #SBATCH --nodes=1 # nodes per job
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs
 #SBATCH --mem=128gb # More memory you request the less priority you get
 #SBATCH --time=50:00:00 # Max request to be safe...
-#SBATCH --output=/scratch/jk7127/logs/param_tar_est_out_ses_%x-%a.txt # Define output log location
-#SBATCH --error=/scratch/jk7127/logs/param_tar_est_err_ses_%x-%a.txt # and the error logs for when it inevitably crashes
+#SBATCH --output=/scratch/jk7127/logs/param_tar_est_out_ses-%a.txt # Define output log location
+#SBATCH --error=/scratch/jk7127/logs/param_tar_est_err_ses-%a.txt # and the error logs for when it inevitably crashes
 #SBATCH --mail-user=jk7127@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
