@@ -10,10 +10,9 @@
 #SBATCH --mail-user=jk7127@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
-#all_subjects=(ALESPA ANDBAS ANDTOR ANTBRA ARIZER ASISOR CALCAR CAMCAP CHISOL CHITOR CLALAV CLANUT DANDAC ELECHE EMAMAM FABGUA GIOTRI IVAPI MIRACQ NOVNAR PAOCON PIEAMB SARCOP TOMBIA VERTUL)
+# example run sbatch estimate_params_textureModel_target.sh 0.84, the only argument [0.84] is scalng of analysis window
+
 all_subjects=(azulejos bike boats gnarled graffiti grooming highway ivy leaves lettuce llama nyc palm portrait quad rocks terraces tiles treetop troop)
-#all_subjects=(highway)
-#all_subjects=(boats gnarled highway llama rocks)
 
 module load matlab/2020b
 
