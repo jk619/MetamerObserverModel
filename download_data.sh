@@ -9,7 +9,7 @@ tar -xvf metamers_energy_ref.tar
 
 mkdir metamers
 mv metamers_energy_met ./metamers/
-mv metamers_energy_ret ./metamers/
+mv metamers_energy_ref ./metamers/
 
 rm metamers_energy_ref.tar
 rm metamers_energy_met.tar
