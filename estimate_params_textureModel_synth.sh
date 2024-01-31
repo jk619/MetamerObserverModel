@@ -85,8 +85,9 @@ for mer = 1 : length(met_types)
 	    	end
 
             oim = double((imread([images(i).folder filesep images(i).name])));
-            oim(:,size(oim,2)/2-50:size(oim,2)/2+50) = 128;
-
+            if bar
+                oim(:,size(oim,2)/2-50:size(oim,2)/2+50) = 128;
+            end
             sz = size(oim);
             mysize_pow_two =  log2(w.size);
             cropx = (sz(1)-2^mysize_pow_two) / 2;
