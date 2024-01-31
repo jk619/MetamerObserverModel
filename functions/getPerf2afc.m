@@ -1,6 +1,6 @@
 function [sampPerf_L1,sampPerf_L2,sampPerf_L4,out] = getPerf2afc(allResp,inParams,iP)
 %%
-mainPath    = fullfile(fileparts(mfilename('fullpath')), '..','..');
+mainPath    = fullfile(fileparts(mfilename('fullpath')), '..');
 loadPath    = fullfile(mainPath,'simulations');
 
 inParams.midN   = inParams.midN(iP);
