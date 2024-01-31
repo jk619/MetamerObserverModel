@@ -5,9 +5,9 @@
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs
 #SBATCH --mem=64gb # More memory you request the less priority you get
 #SBATCH --time=50:00:00 # Max request to be safe...
-#SBATCH --output=/scratch/jaw288/logs/param_est_out_ses-%a.txt # Define output log location
-#SBATCH --error=/scratch/jaw288/logs/param_est_err_ses-%a.txt # and the error logs for when it inevitably crashes
-#SBATCH --mail-user=jaw288@nyu.edu #email
+#SBATCH --output=/scratch/jk7127/logs/param_est_out_ses-%a.txt # Define output log location
+#SBATCH --error=/scratch/jk7127/logs/param_est_err_ses-%a.txt # and the error logs for when it inevitably crashes
+#SBATCH --mail-user=jk7127@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
 # example run sbatch estimate_params_textureModel_synth.sh 0.84, the only argument [0.84] is scalng of analysis window
@@ -34,10 +34,17 @@ clc
 clear
 
 [~,whoami] = system('whoami'); whoami = whoami(1:end-1)
-
+bar         = 1
 mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 windowPath  = fullfile(mainPath,'windows');
-metPath     = fullfile(mainPath,'metamers');
+
+if bar
+    metPath     = fullfile(mainPath,'metamers_bar');
+else
+    metPath     = fullfile(mainPath,'metamers');
+end
+
+
 codePath    = fullfile(mainPath,'functions');
 addpath(genpath(codePath));
 
@@ -78,6 +85,8 @@ for mer = 1 : length(met_types)
 	    	end
 
             oim = double((imread([images(i).folder filesep images(i).name])));
+            oim(:,size(oim,2)/2-50:size(oim,2)/2+50) = 128;
+
             sz = size(oim);
             mysize_pow_two =  log2(w.size);
             cropx = (sz(1)-2^mysize_pow_two) / 2;

@@ -5,9 +5,9 @@
 #SBATCH --cpus-per-task=16 #~2 days to run PRFs
 #SBATCH --mem=128gb # More memory you request the less priority you get
 #SBATCH --time=50:00:00 # Max request to be safe...
-#SBATCH --output=/scratch/jaw288/logs/param_tar_est_out_ses-%a.txt # Define output log location
-#SBATCH --error=/scratch/jaw288/logs/param_tar_est_err_ses-%a.txt # and the error logs for when it inevitably crashes
-#SBATCH --mail-user=jaw288@nyu.edu #email
+#SBATCH --output=/scratch/jk7127/logs/param_tar_est_out_ses-%a.txt # Define output log location
+#SBATCH --error=/scratch/jk7127/logs/param_tar_est_err_ses-%a.txt # and the error logs for when it inevitably crashes
+#SBATCH --mail-user=jk7127@nyu.edu #email
 #SBATCH --mail-type=END #email me when it crashes or better, ends
 
 # example run sbatch estimate_params_textureModel_target.sh 0.84, the only argument [0.84] is scalng of analysis window
