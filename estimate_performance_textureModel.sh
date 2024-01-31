@@ -158,6 +158,7 @@ for a = 1 : length(analysis_type)
         inParams.nTrials        = 2500;  % number of trials per condition; 2500 final version
         inParams.windowInd      = opts.indices;
         inParams.broderickTask  = 1;
+        inParams.scenario       = scenario;
 
 	if w.scaling == 0.21
             midN    = [0.0056    0.0028    0.0014]

@@ -80,8 +80,14 @@ addNoise    = .001;
 
 if inParams.broderickTask
     
-    inParams.leftorRight    = shuffle(repelem({'left';'right'},inParams.nTrials/2));
     
+    if contains(inParams.scenario,'crop')
+        
+        inParams.leftorRight    = shuffle(repelem({'right'},inParams.nTrials))';
+    else
+        inParams.leftorRight    = shuffle(repelem({'left';'right'},inParams.nTrials/2));
+
+    end
 end
 
 % tic
