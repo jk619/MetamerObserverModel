@@ -34,14 +34,19 @@ clc
 clear
 
 [~,whoami] = system('whoami'); whoami = whoami(1:end-1)
-bar         = 1
+
+scenario    = 'crop'
 mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 windowPath  = fullfile(mainPath,'windows');
 
-if bar
-    metPath     = fullfile(mainPath,'metamers_bar');
-else
-    metPath     = fullfile(mainPath,'metamers');
+
+switch scenario
+    case 'bar'
+        metPath  = fullfile(mainPath,'metamers_bar');
+    case 'crop'
+        metPath  = fullfile(mainPath,'metamers_crop');
+    case 'allimg'
+        metPath  = fullfile(mainPath,'metamers');
 end
 
 
@@ -84,16 +89,33 @@ for mer = 1 : length(met_types)
 			load(sprintf('%s/window_2048x2048_s=%.2f_a=%i.mat',windowPath,w.scaling,w.aspect))
 	    	end
 
-            oim = double((imread([images(i).folder filesep images(i).name])));
-            if bar
+        switch scenario
+
+            case 'bar'
+                oim = double(im2uint8(imread([targetPath filesep myimage '.png'])));
                 oim(:,size(oim,2)/2-50:size(oim,2)/2+50) = 128;
-            end
-            sz = size(oim);
-            mysize_pow_two =  log2(w.size);
-            cropx = (sz(1)-2^mysize_pow_two) / 2;
-            cropy = (sz(2)-2^mysize_pow_two) / 2;
-            oim = oim(cropx+1:sz(1)-cropx,cropy+1:sz(2)-cropy,:);
-		
+
+            case 'crop'
+
+                oim = im2uint8(imread([images(i).folder filesep images(i).name]));
+                sz = size(oim);
+                mysize_pow_two =  log2(w.size);
+                cropx = (sz(1)-2^mysize_pow_two) / 2;
+                cropy = (sz(2)-2^mysize_pow_two) / 2;
+                oim = oim(cropx+1:sz(1)-cropx,cropy+1:sz(2)-cropy,:);
+
+                imageSize = size(oim);
+                ci = [1024, 1024+500, 200];     % center and radius of circle ([c_row, c_col, r])
+                [xx,yy] = ndgrid((1:imageSize(1))-ci(1),(1:imageSize(2))-ci(2));
+                mask = uint8((xx.^2 + yy.^2)<ci(3)^2);
+                croppedImage = oim.*mask;
+                croppedImage(croppedImage==0) = 128;
+                croppedImage = double(croppedImage);
+
+            case 'allimg'
+
+            oim = double(im2uint8(imread([targetPath filesep myimage '.png'])));
+
             params = metamerAnalysis(oim,m,opts);
 
             [Out, ~]            = collectParams(params,opts);
