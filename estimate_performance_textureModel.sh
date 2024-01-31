@@ -32,20 +32,31 @@ clc
 clear
 [~,whoami]      = system('whoami'); whoami = whoami(1:end-1)
 
-bar             = 1;
+scenario        = 'bar'
 mainPath        = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 myimage         = '$sub';
 windowPath      = fullfile(mainPath,'windows');
 
-if bar
-    targetPath      = fullfile(mainPath,'target_images_bar');
-    metPath         = fullfile(mainPath,'metamers_bar');
-    resPath         = fullfile(mainPath,'results_bar');
-else
-    targetPath      = fullfile(mainPath,'target_images');
-    metPath         = fullfile(mainPath,'metamers');
-    resPath         = fullfile(mainPath,'results');
+switch scenario
+    case 'bar'
+
+        targetPath      = fullfile(mainPath,'target_images_bar');
+        metPath         = fullfile(mainPath,'metamers_bar');
+        resPath         = fullfile(mainPath,'results_bar');
+
+    case 'crop'
+
+        targetPath      = fullfile(mainPath,'target_images_crop');
+        metPath         = fullfile(mainPath,'metamers_crop');
+        resPath         = fullfile(mainPath,'results_crop');
+
+    case 'allimg'
+
+        targetPath      = fullfile(mainPath,'target_images');
+        metPath         = fullfile(mainPath,'metamers');
+        resPath         = fullfile(mainPath,'results');
 end
+
 
 mkdir(resPath);
 
