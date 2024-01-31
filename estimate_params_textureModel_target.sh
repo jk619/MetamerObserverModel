@@ -30,10 +30,17 @@ matlab -nodesktop -nodisplay -nosplash <<EOF
 
 [~,whoami] = system('whoami'); whoami = whoami(1:end-1)
 
+
+bar         = 1
 mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 windowPath  = fullfile(mainPath,'windows');
 codePath    = fullfile(mainPath,'functions');
-targetPath    = fullfile(mainPath,'target_images');
+
+if bar
+	targetPath  = fullfile(mainPath,'target_images_bar');
+else
+	targetPath  = fullfile(mainPath,'target_images');
+end
 
 addpath(genpath(codePath));
 
@@ -43,12 +50,19 @@ w.scaling   = str2num('$wscale');
 w.aspect    = 2;
 w.size      = 2048;
 
+
 %% load windows
 
     
     load(sprintf('%s/window_2048x2048_s=%.2f_a=%i.mat',windowPath,w.scaling,w.aspect))
 
-    oim = double(im2uint8(imread([targetPath filesep myimage '.png'])));
+    if bar	
+    	oim = double(im2uint8(imread([targetPath filesep myimage '.png'])));
+    	oim(:,size(oim,2)/2-50:size(oim,2)/2+50) = 128;
+    else
+        oim = double(im2uint8(imread([targetPath filesep myimage '.png'])));
+    end
+
     sz = size(oim);
     mysize_pow_two =  log2(w.size);
     cropx = (sz(1)-2^mysize_pow_two) / 2;
