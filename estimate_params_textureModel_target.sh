@@ -34,7 +34,6 @@ matlab -nodesktop -nodisplay -nosplash <<EOF
 bar         = 1
 mainPath    = sprintf('/scratch/%s/MetamerObserverModel/',whoami)
 windowPath  = fullfile(mainPath,'windows');
-codePath    = fullfile(mainPath,'functions');
 
 if bar
 	targetPath  = fullfile(mainPath,'target_images_bar');
