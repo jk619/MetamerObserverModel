@@ -48,7 +48,7 @@ w.size      = 2048;
     
     load(sprintf('%s/window_2048x2048_s=%.2f_a=%i.mat',windowPath,w.scaling,w.aspect))
 
-    oim = double((imread([targetPath filesep myimage '.png'])));
+    oim = double(im2uint8(imread([targetPath filesep myimage '.png'])));
     sz = size(oim);
     mysize_pow_two =  log2(w.size);
     cropx = (sz(1)-2^mysize_pow_two) / 2;

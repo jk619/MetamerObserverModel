@@ -14,10 +14,14 @@ mv metamers_energy_ref ./metamers/
 rm metamers_energy_ref.tar
 rm metamers_energy_met.tar
 
+rm -r metamers_energy_met
+rm -r metamers_energy_ref
+
 curl -O -J -L https://osf.io/hv437/download
 gunzip target_images.tar.gz
-tar -xvf target_images.tar --one-top-level
-
+tar -xvf target_images.tar 
+mkdir target_images
+mv *.png target_images/
 rm target_images.tar
 
 
